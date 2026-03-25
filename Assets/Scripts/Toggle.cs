@@ -17,8 +17,7 @@ public class Toggle : MonoBehaviour
 
     private void Start()
     {
-        _text.color = _startColor;
-        _text.text = _titleTextStart;
+        ChangeText(_titleTextStart, _startColor);
     }
 
     private void Update()

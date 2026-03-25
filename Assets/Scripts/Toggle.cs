@@ -23,7 +23,7 @@ public class Toggle : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Input.GetMouseButtonDown(0))
         {
             OnButtonClick();
         }

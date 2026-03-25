@@ -2,31 +2,47 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Toggle : MonoBehaviour
 {
-    [SerializeField] private Button _button;
     [SerializeField] private TextMeshProUGUI _text;
 
     public event Action ButtonClicked;
 
-    private string _buttonTextStart = "Начать.";
-    private string _buttonTextStop = "Пауза";
+    private string _titleTextStart = "Нажми, чтобы начать отсчёт.";
+    private string _titleTextStop = "Нажми, чтобы остоновить отсчёт.";
+    private Color _startColor = Color.green;
+    private Color _stopColor = Color.red;
 
 
     private void Start()
     {
-        _text.text = _buttonTextStart;
-        _button.onClick.AddListener(OnButtonClick);
+        _text.color = _startColor;
+        _text.text = _titleTextStart;
     }
-    public void OnButtonClick()
+
+    private void Update()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            OnButtonClick();
+        }
+    }
+    private void OnButtonClick()
     {
         ButtonClicked?.Invoke();
 
-        if(_text.text == _buttonTextStart)
-            _text.text = _buttonTextStop;
+        if(_text.text == _titleTextStart)
+            ChangeText(_titleTextStop, _stopColor);
         else 
-            _text.text = _buttonTextStart;
+            ChangeText(_titleTextStart, _startColor);
+    }
+
+    private void ChangeText(string text, Color color)
+    {
+        _text.color = color;
+        _text.text = text;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Counter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Toggle _toggle;
+    [SerializeField] private InputReader _toggle;
 
     private Coroutine _countingCoroutine;
     private float _currentValue = 0f;

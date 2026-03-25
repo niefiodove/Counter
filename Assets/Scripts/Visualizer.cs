@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Visualizer : MonoBehaviour
 {
-    [SerializeField] private Toggle _toggle;
+    [SerializeField] private InputReader _toggle;
     [SerializeField] private TextMeshProUGUI _text;
 
     private string _titleTextStart = "Нажми, чтобы начать отсчёт.";

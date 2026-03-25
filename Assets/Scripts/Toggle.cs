@@ -8,13 +8,12 @@ public class Toggle : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    public event Action ButtonClicked;
-
     private string _titleTextStart = "Нажми, чтобы начать отсчёт.";
     private string _titleTextStop = "Нажми, чтобы остоновить отсчёт.";
     private Color _startColor = Color.green;
     private Color _stopColor = Color.red;
 
+    public event Action ButtonClicked;
 
     private void Start()
     {

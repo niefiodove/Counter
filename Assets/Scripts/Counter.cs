@@ -20,14 +20,14 @@ public class Counter : MonoBehaviour
 
     private void OnEnable()
     {
-        _toggle.ButtonClicked += ButtonClick;
+        _toggle.ButtonClicked += OnButtonClick;
     }
 
     private void OnDisable()
     {
-        _toggle.ButtonClicked -= ButtonClick;
+        _toggle.ButtonClicked -= OnButtonClick;
     }
-    private void ButtonClick()
+    private void OnButtonClick()
     {
         if( _isActive )
         {

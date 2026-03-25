@@ -1,30 +1,27 @@
+using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private InputReader _toggle;
+    [SerializeField] private InputReader _inputReader;
 
     private Coroutine _countingCoroutine;
     private float _currentValue = 0f;
     private float _stepCount = 0.5f;
     private float _stepDelay = 1f;
 
-    private void Start()
-    {
-        _text.text = $"{_currentValue}";
-    }
+    public event Action<float> CounterTextSent;
+    public event Action<bool> StartCounter;
 
     private void OnEnable()
     {
-        _toggle.ButtonClicked += OnButtonClick;
+        _inputReader.ButtonClicked += OnButtonClick;
     }
 
     private void OnDisable()
     {
-        _toggle.ButtonClicked -= OnButtonClick;
+        _inputReader.ButtonClicked -= OnButtonClick;
     }
     private void OnButtonClick()
     {
@@ -32,10 +29,12 @@ public class Counter : MonoBehaviour
         {
             StopCoroutine(_countingCoroutine);
             _countingCoroutine = null;
+            StartCounter?.Invoke(false);
         }
         else
         {
             _countingCoroutine = StartCoroutine(Counting());
+            StartCounter?.Invoke(true);
         }
     }
 
@@ -46,14 +45,9 @@ public class Counter : MonoBehaviour
 
         while (isWork)
         {
-            DisplayCounting(_currentValue);
+            CounterTextSent?.Invoke(_currentValue);
             _currentValue += _stepCount;
             yield return wait;
         }
-    }
-
-    private void DisplayCounting(float count)
-    {
-        _text.text = count.ToString("");
     }
 }
